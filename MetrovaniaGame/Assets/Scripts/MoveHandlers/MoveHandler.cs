@@ -2,12 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface MoveHandler
+public abstract class MoveHandler : MonoBehaviour
 {
-    void Move(Movement move);
-}
-
-public enum Movement
-{
-    Right, Left, Jump
+    public abstract void Move(Vector2 direction);
+    public abstract void Jump();
 }

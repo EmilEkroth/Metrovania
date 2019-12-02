@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface DeathHandler
+public abstract class DeathHandler : ScriptableObject
 {
-    void die();
+    public abstract void die();
 }

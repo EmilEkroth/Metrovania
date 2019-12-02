@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface HealthHandler
+public abstract class HealthHandler : ScriptableObject
 {
-    int GetHealth();
-    void Damage(int damage);
-    void Heal(int healing);
+    public abstract int GetHealth();
+    public abstract void Damage(int damage);
+    public abstract void Heal(int healing);
 }

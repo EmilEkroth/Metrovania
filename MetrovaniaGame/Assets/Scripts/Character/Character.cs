@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface Character
+public class Character : MonoBehaviour
 {
-    HealthHandler GetHealthHandler();
-    DeathHandler GetDeathHandler();
-    MoveHandler GetMoveHandler();
+    [SerializeReference] private HealthHandler healthHandler;
+    [SerializeReference] private DeathHandler deathHandler;
+    [SerializeReference] private MoveHandler moveHandler;
+
+    public HealthHandler GetHealthHandler() { return healthHandler; }
+    public DeathHandler GetDeathHandler() { return deathHandler; }
+    public MoveHandler GetMoveHandler() { return moveHandler; }
 }

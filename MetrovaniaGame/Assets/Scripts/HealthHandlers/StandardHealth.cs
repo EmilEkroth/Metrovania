@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StandardHealth : MonoBehaviour, HealthHandler
+[CreateAssetMenu(fileName = "StandardHealth", menuName = "ScriptableObjects/HealthHandelers/StandardHealth", order = 1)]
+public class StandardHealth : HealthHandler
 {
     private int health;
     private int maxHealth;
@@ -21,13 +22,13 @@ public class StandardHealth : MonoBehaviour, HealthHandler
         maxHealth = health;
     }
 
-    public int GetHealth() { return health; }
-    public void Damage (int damage) {
+    public override int GetHealth() { return health; }
+    public override void Damage (int damage) {
         health -= damage;
         if (health < 0) death.die();
     }
 
-    public void Heal (int healing) {
+    public override void Heal (int healing) {
         health += healing;
         if (health > maxHealth) health = maxHealth;
     }
