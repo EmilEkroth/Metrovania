@@ -2,20 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "StandardMovement", menuName = "ScriptableObjects/MoveHandelers/StandardMovement", order = 1)]
 public class StandrardMovement : MoveHandler
 {
-    [SerializeField] private Rigidbody2D rBody; 
-    [SerializeField] private Transform transform;
     [SerializeField] private float moveSpeed = 0.2f;
     [SerializeField] private float jumpStrength = 800f;
     [SerializeField] private int maxJumps = 1;
-    [SerializeField] private float groundDetectionDistance = 1f;
+    [SerializeField] private float groundDetectionDistance = .5f;
 
     private Vector2 direction = new Vector2(0, 0);
    
     private int jumps = 1000;
 
-    private void FixedUpdate()
+    public override void FixedUpdate()
     {
         transform.position = new Vector3(transform.position.x + direction.x * moveSpeed, transform.position.y);
 
@@ -26,9 +25,7 @@ public class StandrardMovement : MoveHandler
         }
         if(rBody.velocity.y < 0f)
         {
-            Debug.Log(rBody.velocity);
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, .5f);
-            Debug.Log(hit.collider);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, groundDetectionDistance);
             if(hit.collider != null)
             {
                 jumps = 1;
@@ -43,11 +40,7 @@ public class StandrardMovement : MoveHandler
 
     public override void Jump()
     {
-        Debug.Log("jumps " + jumps);
-
-        Debug.Log(rBody.velocity);
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, .5f);
-        Debug.Log(hit.collider);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, groundDetectionDistance);
         if (hit.collider != null)
         {
             rBody.AddForce(Vector2.up * jumpStrength);

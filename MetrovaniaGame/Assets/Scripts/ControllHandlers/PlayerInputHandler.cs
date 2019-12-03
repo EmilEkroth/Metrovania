@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 using System;
 
-public class PlayerInputHandler : MonoBehaviour, ControllHandler 
+public class PlayerInputHandler : MonoBehaviour, ControllHandler
 {
     private InputManager controls;
     [SerializeReference] private Character puppet;
@@ -24,7 +24,6 @@ public class PlayerInputHandler : MonoBehaviour, ControllHandler
 
     private void Move (float dir)
     {
-        Debug.Log("move " + dir);
         puppet.GetMoveHandler().Move(new Vector2(dir, 0));
     }
 
