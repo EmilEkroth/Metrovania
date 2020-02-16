@@ -13,11 +13,21 @@ public class StandrardMovement : MoveHandler
     private Vector2 direction = new Vector2(0, 0);
    
     private int jumps = 1000;
+    private float actualMoveSpeed = 0;
 
     public override void FixedUpdate()
     {
-        transform.position = new Vector3(transform.position.x + direction.x * moveSpeed, transform.position.y);
+        transform.position = new Vector3(transform.position.x + direction.x * actualMoveSpeed, transform.position.y);
 
+        if (rBody.drag > 1)
+        {
+            if (rBody.drag > 1)
+            {
+                rBody.drag--;
+                if (rBody.drag < 2)
+                    actualMoveSpeed = moveSpeed;
+            }
+        }
 
         if (rBody.velocity.y < -1000f)
         {
@@ -28,14 +38,15 @@ public class StandrardMovement : MoveHandler
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, groundDetectionDistance);
             if(hit.collider != null)
             {
-                jumps = 1;
+                jumps = 1; rBody.drag = 5;
+                actualMoveSpeed = moveSpeed/2;
             }
         }
     }
 
     public override  void Move(Vector2 dir)
     {
-        direction = dir;
+        direction = dir;            
     }
 
     public override void Jump()

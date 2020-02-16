@@ -15,4 +15,4 @@ MonoBehaviour:
   moveSpeed: 0.2
   jumpStrength: 800
   maxJumps: 1
-  groundDetectionDistance: 1
+  groundDetectionDistance: 0.5
