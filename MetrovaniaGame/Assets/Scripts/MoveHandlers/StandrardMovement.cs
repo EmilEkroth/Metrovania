@@ -9,6 +9,10 @@ public class StandrardMovement : MoveHandler
     [SerializeField] private float jumpStrength = 800f;
     [SerializeField] private int maxJumps = 1;
     [SerializeField] private float groundDetectionDistance = .5f;
+    [SerializeField] private float playerWidth = 1f;
+    [SerializeField] private float touchGroundDrag = 10;
+    [SerializeField] private int toutchGroundSpeedDivider = 6;
+    [SerializeField] private int maximumFallVelocity = 500;
 
     private Vector2 direction = new Vector2(0, 0);
    
@@ -17,7 +21,10 @@ public class StandrardMovement : MoveHandler
 
     public override void FixedUpdate()
     {
-        transform.position = new Vector3(transform.position.x + direction.x * actualMoveSpeed, transform.position.y);
+        if (rBody.velocity.y < -500f)
+        {
+            rBody.velocity = new Vector2(rBody.velocity.x, -500f);
+        }
 
         if (rBody.drag > 1)
         {
@@ -25,21 +32,26 @@ public class StandrardMovement : MoveHandler
             {
                 rBody.drag--;
                 if (rBody.drag < 2)
+                {
+                    jumps = 1;
                     actualMoveSpeed = moveSpeed;
+                }
             }
         }
 
-        if (rBody.velocity.y < -1000f)
+        transform.position = Vector3.Slerp(transform.position, new Vector3(transform.position.x + direction.x * actualMoveSpeed, transform.position.y, transform.position.z), 1f);
+
+        if (rBody.velocity.y < 0f)
         {
-            rBody.velocity = new Vector2(rBody.velocity.x, -1000f);
-        }
-        if(rBody.velocity.y < 0f)
-        {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, groundDetectionDistance);
-            if(hit.collider != null)
+            RaycastHit2D hitL = Physics2D.Raycast(new Vector3(transform.position.x - playerWidth/5, transform.position.y, transform.position.z), Vector2.down, groundDetectionDistance);
+            RaycastHit2D hitR = Physics2D.Raycast(new Vector3(transform.position.x + playerWidth / 5, transform.position.y, transform.position.z), Vector2.down, groundDetectionDistance);
+
+            Debug.DrawLine(new Vector3(transform.position.x - playerWidth / 5, transform.position.y), new Vector3(transform.position.x - playerWidth / 5, transform.position.y - groundDetectionDistance), Color.red);
+            Debug.DrawLine(new Vector3(transform.position.x + playerWidth / 5, transform.position.y), new Vector3(transform.position.x + playerWidth / 5, transform.position.y - groundDetectionDistance), Color.red);
+            if (hitL.collider != null || hitR.collider != null)
             {
-                jumps = 1; rBody.drag = 5;
-                actualMoveSpeed = moveSpeed/2;
+                rBody.drag = touchGroundDrag;
+                actualMoveSpeed = moveSpeed/toutchGroundSpeedDivider;
             }
         }
     }
@@ -51,8 +63,12 @@ public class StandrardMovement : MoveHandler
 
     public override void Jump()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, groundDetectionDistance);
-        if (hit.collider != null)
+        RaycastHit2D hitL = Physics2D.Raycast(new Vector3(transform.position.x - playerWidth / 5, transform.position.y, transform.position.z), Vector2.down, groundDetectionDistance);
+        RaycastHit2D hitR = Physics2D.Raycast(new Vector3(transform.position.x + playerWidth / 5, transform.position.y, transform.position.z), Vector2.down, groundDetectionDistance);
+
+        Debug.DrawLine(new Vector3(transform.position.x - playerWidth / 5, transform.position.y), new Vector3(transform.position.x - playerWidth / 5, transform.position.y-groundDetectionDistance), Color.red);
+        Debug.DrawLine(new Vector3(transform.position.x + playerWidth / 5, transform.position.y), new Vector3(transform.position.x + playerWidth / 5, transform.position.y- groundDetectionDistance), Color.red);
+        if ((hitL.collider != null || hitR.collider != null) && rBody.drag == 1)
         {
             rBody.AddForce(Vector2.up * jumpStrength);
         }

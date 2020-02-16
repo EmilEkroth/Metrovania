@@ -16,3 +16,7 @@ MonoBehaviour:
   jumpStrength: 800
   maxJumps: 1
   groundDetectionDistance: 0.5
+  playerWidth: 0.8
+  touchGroundDrag: 3
+  toutchGroundSpeedDivider: 4
+  maximumFallVelocity: 500
