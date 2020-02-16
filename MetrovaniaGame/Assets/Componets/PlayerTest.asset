@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51d046b597882244086bb7d2a7068c31, type: 3}
   m_Name: PlayerTest
   m_EditorClassIdentifier: 
-  moveSpeed: 0.2
+  moveSpeed: 0.15
   jumpStrength: 800
   maxJumps: 1
   groundDetectionDistance: 0.5
