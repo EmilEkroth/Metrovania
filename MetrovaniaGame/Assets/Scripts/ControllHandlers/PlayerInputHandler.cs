@@ -15,6 +15,7 @@ public class PlayerInputHandler : MonoBehaviour, ControllHandler
         controls = new InputManager();
         controls.Player.Jump.performed += _ => Jump();
         controls.Player.MoveHorizontal.performed += ctx => Move(ctx.ReadValue<float>());
+        controls.Player.Attack.performed += _=> Attack();
     }
 
     private void Jump()
@@ -25,6 +26,11 @@ public class PlayerInputHandler : MonoBehaviour, ControllHandler
     private void Move (float dir)
     {
         puppet.GetMoveHandler().Move(new Vector2(dir, 0));
+    }
+
+    private void Attack()
+    {
+        puppet.GetAttackHandeler().Attack();
     }
 
     private void OnEnable()

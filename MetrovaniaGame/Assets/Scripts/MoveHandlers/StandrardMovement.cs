@@ -63,8 +63,8 @@ public class StandrardMovement : MoveHandler
 
     public override void Jump()
     {
-        RaycastHit2D hitL = Physics2D.Raycast(new Vector3(transform.position.x - playerWidth / 5, transform.position.y, transform.position.z), Vector2.down, groundDetectionDistance);
-        RaycastHit2D hitR = Physics2D.Raycast(new Vector3(transform.position.x + playerWidth / 5, transform.position.y, transform.position.z), Vector2.down, groundDetectionDistance);
+        RaycastHit2D hitL = Physics2D.Raycast(new Vector3(transform.position.x - playerWidth / 5, transform.position.y, transform.position.z), Vector2.down, groundDetectionDistance,1);
+        RaycastHit2D hitR = Physics2D.Raycast(new Vector3(transform.position.x + playerWidth / 5, transform.position.y, transform.position.z), Vector2.down, groundDetectionDistance,1);
 
         Debug.DrawLine(new Vector3(transform.position.x - playerWidth / 5, transform.position.y), new Vector3(transform.position.x - playerWidth / 5, transform.position.y-groundDetectionDistance), Color.red);
         Debug.DrawLine(new Vector3(transform.position.x + playerWidth / 5, transform.position.y), new Vector3(transform.position.x + playerWidth / 5, transform.position.y- groundDetectionDistance), Color.red);
@@ -77,5 +77,11 @@ public class StandrardMovement : MoveHandler
             rBody.AddForce(Vector2.up * jumpStrength);
             jumps++;
         }
+    }
+
+    public override Vector2 GetDirection()
+    {
+        Vector2 dir = new   Vector2(((Mathf.Abs(direction.x)>0f)? direction.x : 0) , ((Mathf.Abs(direction.y)>0f)? direction.y : 0));
+        return dir;
     }
 }

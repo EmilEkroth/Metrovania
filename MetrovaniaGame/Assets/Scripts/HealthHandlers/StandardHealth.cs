@@ -5,7 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "StandardHealth", menuName = "ScriptableObjects/HealthHandelers/StandardHealth", order = 1)]
 public class StandardHealth : HealthHandler
 {
-    private int health;
+   [SerializeField] private int health;
+
     private int maxHealth;
     DeathHandler death;
 

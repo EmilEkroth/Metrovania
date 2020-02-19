@@ -41,6 +41,14 @@ public class Character : MonoBehaviour
         #endregion
     }
 
+    private void Start()
+    {
+        if(moveHandler == null)
+        {
+            moveHandler = (MoveHandler)ScriptableObject.CreateInstance("StaticMoveHandeler");
+        }
+    }
+
     private void FixedUpdate()
     { //Pushing fixed update to components:
         moveHandler.FixedUpdate();

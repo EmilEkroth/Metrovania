@@ -13,5 +13,7 @@ public abstract class MoveHandler : ScriptableObject
     public abstract void Move(Vector2 direction);
     public abstract void Jump();
 
+    public abstract Vector2 GetDirection();
+
     public abstract void FixedUpdate();
 }
