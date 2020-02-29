@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "StandardMovement", menuName = "ScriptableObjects/MoveHandelers/StandardMovement", order = 1)]
 public class StandrardMovement : MoveHandler
 {
+    [SerializeField] private Transform transform;
+    [SerializeField] private Rigidbody2D rBody;
+
     [SerializeField] private float moveSpeed = 0.2f;
     [SerializeField] private float jumpStrength = 800f;
     [SerializeField] private int maxJumps = 1;
@@ -19,7 +21,7 @@ public class StandrardMovement : MoveHandler
     private int jumps = 1000;
     private float actualMoveSpeed = 0;
 
-    public override void FixedUpdate()
+    private void FixedUpdate()
     {
         if (rBody.velocity.y < -500f)
         {
@@ -31,24 +33,28 @@ public class StandrardMovement : MoveHandler
             if (rBody.drag > 1)
             {
                 rBody.drag--;
-                if (rBody.drag < 2)
+                if (rBody.drag < 3)
                 {
-                    jumps = 1;
+                    jumps = 0;
                     actualMoveSpeed = moveSpeed;
                 }
             }
         }
-
-        transform.position = Vector3.Slerp(transform.position, new Vector3(transform.position.x + direction.x * actualMoveSpeed, transform.position.y, transform.position.z), 1f);
+        transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x + direction.x * actualMoveSpeed * Time.fixedDeltaTime, transform.position.y, transform.position.z), 1f);
 
         if (rBody.velocity.y < 0f)
         {
-            RaycastHit2D hitL = Physics2D.Raycast(new Vector3(transform.position.x - playerWidth/5, transform.position.y, transform.position.z), Vector2.down, groundDetectionDistance);
+            if (jumps == 0)
+            {
+                jumps = 1;
+            }
+
+            RaycastHit2D hitL = Physics2D.Raycast(new Vector3(transform.position.x - playerWidth/5, transform.position.y, transform.position.z), Vector2.down, groundDetectionDistance, 1, -10, 10);
             RaycastHit2D hitR = Physics2D.Raycast(new Vector3(transform.position.x + playerWidth / 5, transform.position.y, transform.position.z), Vector2.down, groundDetectionDistance);
 
             Debug.DrawLine(new Vector3(transform.position.x - playerWidth / 5, transform.position.y), new Vector3(transform.position.x - playerWidth / 5, transform.position.y - groundDetectionDistance), Color.red);
             Debug.DrawLine(new Vector3(transform.position.x + playerWidth / 5, transform.position.y), new Vector3(transform.position.x + playerWidth / 5, transform.position.y - groundDetectionDistance), Color.red);
-            if (hitL.collider != null || hitR.collider != null)
+            if ((hitL.collider != null  && !hitL.collider.name.Equals(gameObject.name)) || (hitR.collider != null && !hitR.collider.name.Equals(gameObject.name)))
             {
                 rBody.drag = touchGroundDrag;
                 actualMoveSpeed = moveSpeed/toutchGroundSpeedDivider;
@@ -63,16 +69,7 @@ public class StandrardMovement : MoveHandler
 
     public override void Jump()
     {
-        RaycastHit2D hitL = Physics2D.Raycast(new Vector3(transform.position.x - playerWidth / 5, transform.position.y, transform.position.z), Vector2.down, groundDetectionDistance,1);
-        RaycastHit2D hitR = Physics2D.Raycast(new Vector3(transform.position.x + playerWidth / 5, transform.position.y, transform.position.z), Vector2.down, groundDetectionDistance,1);
-
-        Debug.DrawLine(new Vector3(transform.position.x - playerWidth / 5, transform.position.y), new Vector3(transform.position.x - playerWidth / 5, transform.position.y-groundDetectionDistance), Color.red);
-        Debug.DrawLine(new Vector3(transform.position.x + playerWidth / 5, transform.position.y), new Vector3(transform.position.x + playerWidth / 5, transform.position.y- groundDetectionDistance), Color.red);
-        if ((hitL.collider != null || hitR.collider != null) && rBody.drag == 1)
-        {
-            rBody.AddForce(Vector2.up * jumpStrength);
-        }
-        else if (jumps < maxJumps && rBody.velocity.y < 200)
+        if (jumps < maxJumps && rBody.velocity.y < 200 && rBody.drag == 1)
         {
             rBody.AddForce(Vector2.up * jumpStrength);
             jumps++;

@@ -7,24 +7,24 @@ public class Swing_Attack : AttackHandeler
 {
     [SerializeField] int damage = 10;
     [SerializeField] float attackDistance = 1f;
+    [SerializeField] MoveHandler moveHandler;
     
     public override void Attack ()
     {
-        Debug.Log(character.name + " attacked!");
-        Vector2 dir = character.GetMoveHandler().GetDirection();
+        Vector2 dir = moveHandler.GetDirection();
         dir *= attackDistance;
-        Debug.DrawLine(character.transform.position, new Vector2(dir.x + character.transform.position.x, dir.y + character.transform.position.y), Color.red);
-        Vector2 attackPoint = new Vector2(dir.x + character.transform.position.x, dir.y + character.transform.position.y);
+        Debug.DrawLine(moveHandler.transform.position, new Vector2(dir.x + moveHandler.transform.position.x, dir.y + moveHandler.transform.position.y), Color.red);
+        Vector2 attackPoint = new Vector2(dir.x + moveHandler.transform.position.x, dir.y + moveHandler.transform.position.y);
 
         RaycastHit2D [] hits = Physics2D.CircleCastAll(attackPoint, attackDistance / 2, attackPoint);
 
         foreach (RaycastHit2D hit in hits)
         {
 
-            if(!(hit.collider.name.Equals(character.name, System.StringComparison.CurrentCulture)) && hit.collider.CompareTag ("Character"))
+            if(!(hit.collider.name.Equals(moveHandler.name, System.StringComparison.CurrentCulture)) && hit.collider.CompareTag ("Character"))
             {
-                Debug.Log(hit.collider.name + " : " + character.name);
-                hit.collider.GetComponent<Character>().GetHealthHandler().Damage(damage);
+                Debug.Log(hit.collider.name + " : " + moveHandler.name);
+                hit.collider.GetComponent<HealthHandler>().Damage(damage);
             }
         }
     }

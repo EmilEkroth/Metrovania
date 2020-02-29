@@ -190,7 +190,7 @@ public class @InputManager : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""c63a25c4-dbcf-4492-9372-0ff20a9d67d3"",
-                    ""path"": ""<XInputController>/leftShoulder"",
+                    ""path"": ""<DualShockGamepad>/rightShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Xbox Controller"",
@@ -201,7 +201,7 @@ public class @InputManager : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""d550ffdd-2de4-4375-92b8-3676f9c32b12"",
-                    ""path"": ""<DualShockGamepad>/leftShoulder"",
+                    ""path"": ""<XInputController>/rightShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""PS4 Controller"",

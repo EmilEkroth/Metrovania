@@ -8,7 +8,8 @@ using System;
 public class PlayerInputHandler : MonoBehaviour, ControllHandler
 {
     private InputManager controls;
-    [SerializeReference] private Character puppet;
+    [SerializeReference] private MoveHandler puppetMove;
+    [SerializeReference] private AttackHandeler puppetAttack;
 
     private void Awake()
     {
@@ -20,17 +21,17 @@ public class PlayerInputHandler : MonoBehaviour, ControllHandler
 
     private void Jump()
     {
-        puppet.GetMoveHandler().Jump();
+        puppetMove.Jump();
     }
 
     private void Move (float dir)
     {
-        puppet.GetMoveHandler().Move(new Vector2(dir, 0));
+        puppetMove.Move(new Vector2(dir, 0));
     }
 
     private void Attack()
     {
-        puppet.GetAttackHandeler().Attack();
+        puppetAttack.Attack();
     }
 
     private void OnEnable()
