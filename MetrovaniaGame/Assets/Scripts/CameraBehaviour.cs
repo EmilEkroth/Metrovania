@@ -5,8 +5,8 @@ using UnityEngine;
 public class CameraBehaviour : MonoBehaviour
 {
     [SerializeField] private Transform target;
-    [SerializeField] private Vector2 offset;
-    [SerializeField] private int onScreenZone;
+    [SerializeField] private Vector2 playerOffset;
+    [SerializeField] private float onScreenZone;
 
     void Start()
     {
@@ -15,9 +15,9 @@ public class CameraBehaviour : MonoBehaviour
 
     void Update()
     {
-        if (Mathf.Abs(Vector2.Distance(target.position, new Vector2(transform.position.x - offset.x, transform.position.y -offset.y))) > onScreenZone)
+        if (Mathf.Abs(Vector2.Distance(target.position, new Vector2(transform.position.x - playerOffset.x, transform.position.y -playerOffset.y))) > onScreenZone)
         {
-            transform.position = Vector3.Slerp(transform.position,  new Vector3(target.position.x + offset.x, target.position.y + offset.y,transform.position.z), .03f);
+            transform.position = Vector3.Slerp(transform.position,  new Vector3(target.position.x + playerOffset.x, target.position.y + playerOffset.y,transform.position.z), .03f);
         }
     }
 }

@@ -607,8 +607,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 574539405}
-  offset: {x: 0, y: 1}
-  onScreenZone: 1
+  playerOffset: {x: 0, y: 0.5}
+  onScreenZone: 0.5
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -636,7 +636,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 2.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -789,6 +789,7 @@ GameObject:
   - component: {fileID: 574539407}
   - component: {fileID: 574539403}
   - component: {fileID: 574539401}
+  - component: {fileID: 574539408}
   m_Layer: 8
   m_Name: Player
   m_TagString: Character
@@ -823,7 +824,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 404b04ec35694f340846882ee1462f15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  puppetMove: {fileID: 574539403}
+  puppetMove: {fileID: 574539408}
   puppetAttack: {fileID: 574539401}
 --- !u!114 &574539403
 MonoBehaviour:
@@ -832,7 +833,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 574539400}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 51d046b597882244086bb7d2a7068c31, type: 3}
   m_Name: 
@@ -958,6 +959,28 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.32, y: 0.32}
   m_EdgeRadius: 0
+--- !u!114 &574539408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 574539400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51d046b597882244086bb7d2a7068c31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transform: {fileID: 574539405}
+  rBody: {fileID: 574539406}
+  moveSpeed: 5
+  jumpStrength: 700
+  maxJumps: 1
+  groundDetectionDistance: 0.5
+  playerWidth: 0.8
+  touchGroundDrag: 6
+  toutchGroundSpeedDivider: 6
+  maximumFallVelocity: 500
 --- !u!1 &1077177405
 GameObject:
   m_ObjectHideFlags: 0
