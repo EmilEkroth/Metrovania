@@ -13,7 +13,7 @@ public class CameraBehaviour : MonoBehaviour
         
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (Mathf.Abs(Vector2.Distance(target.position, new Vector2(transform.position.x - playerOffset.x, transform.position.y -playerOffset.y))) > onScreenZone)
         {
