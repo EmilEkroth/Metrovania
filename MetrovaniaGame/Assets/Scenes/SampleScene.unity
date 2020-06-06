@@ -975,7 +975,7 @@ MonoBehaviour:
   rBody: {fileID: 574539406}
   moveSpeed: 5
   jumpStrength: 700
-  maxJumps: 1
+  maxJumps: 2
   groundDetectionDistance: 0.5
   playerWidth: 0.8
   touchGroundDrag: 6
