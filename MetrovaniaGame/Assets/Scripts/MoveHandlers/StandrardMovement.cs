@@ -23,9 +23,10 @@ public class StandrardMovement : MoveHandler
 
     private void FixedUpdate()
     {
-        if (rBody.velocity.y < -500f)
+        if (rBody.velocity.y < -maximumFallVelocity)
         {
-            rBody.velocity = new Vector2(rBody.velocity.x, -500f);
+            rBody.velocity = new Vector2(rBody.velocity.x, -maximumFallVelocity);
+            Debug.Log("maximum fall speed");
         }
 
         if (rBody.drag > 1)

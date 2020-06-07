@@ -606,9 +606,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1588c93b2b8d7a24fb108528b62a46ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camera: {fileID: 519420031}
   target: {fileID: 574539405}
   playerOffset: {x: 0, y: 0.5}
-  onScreenZone: 0.5
+  onScreenZone: 0.3
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -787,7 +788,6 @@ GameObject:
   - component: {fileID: 574539406}
   - component: {fileID: 574539402}
   - component: {fileID: 574539407}
-  - component: {fileID: 574539403}
   - component: {fileID: 574539401}
   - component: {fileID: 574539408}
   m_Layer: 8
@@ -811,7 +811,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 10
   attackDistance: 1
-  moveHandler: {fileID: 574539403}
+  moveHandler: {fileID: 0}
 --- !u!114 &574539402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -826,28 +826,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   puppetMove: {fileID: 574539408}
   puppetAttack: {fileID: 574539401}
---- !u!114 &574539403
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 574539400}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51d046b597882244086bb7d2a7068c31, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  transform: {fileID: 574539405}
-  rBody: {fileID: 574539406}
-  moveSpeed: 7
-  jumpStrength: 800
-  maxJumps: 1
-  groundDetectionDistance: 0.5
-  playerWidth: 0.8
-  touchGroundDrag: 6
-  toutchGroundSpeedDivider: 10
-  maximumFallVelocity: 500
 --- !u!212 &574539404
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -980,7 +958,7 @@ MonoBehaviour:
   playerWidth: 0.8
   touchGroundDrag: 6
   toutchGroundSpeedDivider: 6
-  maximumFallVelocity: 500
+  maximumFallVelocity: 18
 --- !u!1 &1077177405
 GameObject:
   m_ObjectHideFlags: 0
@@ -1299,8 +1277,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1600816767}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.9, y: 3.81, z: 0}
-  m_LocalScale: {x: 2.3628514, y: 1, z: 1}
+  m_LocalPosition: {x: -6.34, y: 3.81, z: 0}
+  m_LocalScale: {x: 4.406718, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 11
